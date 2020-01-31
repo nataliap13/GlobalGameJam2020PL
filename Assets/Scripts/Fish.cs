@@ -9,7 +9,30 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        likedPlants = new List<TypeOfPlantEnum>();
+        hatedPlants = new List<TypeOfPlantEnum>();
+        switch (typeOfFish)
+        {
+            case typeOfFishEnum.peaceful:
+                {
+                    likedPlants.Add(TypeOfPlantEnum.Type1);
+                    hatedPlants.Add(TypeOfPlantEnum.Type2);
+                    break;
+                }
+            case typeOfFishEnum.aggresive:
+                {
+                    likedPlants.Add(TypeOfPlantEnum.Type2);
+                    hatedPlants.Add(TypeOfPlantEnum.Type1);
+                    break;
+                }
+        }
         StartCoroutine(TimerToHungry(2));
+
+        if (speed < 0)
+        {
+            Flip();
+            speed *= -1;
+        }
     }
 
     const int maxHappiness = 100;
@@ -17,6 +40,8 @@ public class Fish : MonoBehaviour
     public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
     private Fish TargetFishToEat;
+    public List<TypeOfPlantEnum> likedPlants { get; private set; }
+    public List<TypeOfPlantEnum> hatedPlants { get; private set; }
 
     //minNumberOfFishToHapiness of my type/spiecies
     public int minNumberOfFishToHapiness = 1;
@@ -28,7 +53,7 @@ public class Fish : MonoBehaviour
     void Update()
     {
         MoveHorizontal();
-        if(TargetFishToEat != null)
+        if (TargetFishToEat != null)
         {
             float step = 1 * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetFishToEat.transform.position.y), step);
@@ -44,10 +69,10 @@ public class Fish : MonoBehaviour
     private void ChooseFishToEat()
     {
         var fish = FindObjectsOfType<Fish>();
-        
+
         foreach (var f in fish)
         {
-            if(f.sizeOfFish < sizeOfFish)
+            if (f.sizeOfFish < sizeOfFish)
             {
                 TargetFishToEat = f;
                 break;
@@ -55,18 +80,18 @@ public class Fish : MonoBehaviour
         }
     }
 
-    public void MoveHorizontal()
+    private void MoveHorizontal()
     {
         transform.Translate(speed * Time.deltaTime, 0, 0);
     }
 
-    public void MoveVertical()
+    private void MoveVertical()
     {
-        
+
         transform.Translate(0, speed * Time.deltaTime, 0);
     }
 
-    public void Flip ()
+    public void Flip()
     {
         var localScale = gameObject.transform.localScale;
         localScale.x *= -1;
@@ -79,7 +104,7 @@ public class Fish : MonoBehaviour
         var otherFish = collision.GetComponent<Fish>();
         if (otherFish != null)
         {
-            if(sizeOfFish > otherFish.sizeOfFish)
+            if (sizeOfFish > otherFish.sizeOfFish)
             {
                 Destroy(otherFish.gameObject);
             }
