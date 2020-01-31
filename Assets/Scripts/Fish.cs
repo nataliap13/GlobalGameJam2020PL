@@ -76,7 +76,7 @@ public class Fish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var otherFish = GetComponent<Fish>();
+        var otherFish = collision.GetComponent<Fish>();
         if (otherFish != null)
         {
             if(sizeOfFish > otherFish.sizeOfFish)
