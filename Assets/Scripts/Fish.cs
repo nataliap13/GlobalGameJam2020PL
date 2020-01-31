@@ -17,6 +17,12 @@ public class Fish : MonoBehaviour
     public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
 
+    //minNumberOfFishToHapiness of my type/spiecies
+    public int minNumberOfFishToHapiness = 1;
+    public int maxNumberOfFishToHapiness = 1;
+
+    public float speed = 5;
+
     // Update is called once per frame
     void Update()
     {
