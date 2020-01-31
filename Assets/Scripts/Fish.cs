@@ -26,18 +26,21 @@ public class Fish : MonoBehaviour
                     break;
                 }
         }
-        StartCoroutine(TimerToHungry(2));
 
         if (speed < 0)
         {
             Flip();
             speed *= -1;
         }
+
+        ChooseFishToEat(2);
     }
 
     public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
     private Fish TargetFishToEat;
+    private bool GoToHunt = false;
+    private Fish ChosenTargetFishToEat;
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
     public List<TypeOfPlantEnum> HatedPlants { get; private set; }
 
@@ -47,20 +50,25 @@ public class Fish : MonoBehaviour
     void Update()
     {
         MoveHorizontal();
-        if (TargetFishToEat != null)
+        if (GoToHunt == true && TargetFishToEat != null)
         {
             float step = 1 * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetFishToEat.transform.position.y), step);
         }
+        else if (TargetFishToEat == null)
+        {
+            GoToHunt = false;
+            ChooseFishToEat(2);
+        }
     }
 
-    private IEnumerator TimerToHungry(int timeInSeconds)
+    private IEnumerator TimerToHunt(int timeInSeconds)
     {
         yield return new WaitForSeconds(timeInSeconds);
-        ChooseFishToEat();
+        GoToHunt = true;
     }
 
-    private void ChooseFishToEat()
+    private void ChooseFishToEat(int timeInSeconds)
     {
         var fish = FindObjectsOfType<Fish>();
 
@@ -69,6 +77,7 @@ public class Fish : MonoBehaviour
             if (f.sizeOfFish < sizeOfFish)
             {
                 TargetFishToEat = f;
+                StartCoroutine(TimerToHunt(2));
                 break;
             }
         }
