@@ -39,7 +39,7 @@ public class Fish : MonoBehaviour
     public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
     private Fish TargetFishToEat;
-    private bool GoToHunt = false;
+    private bool GoHunt = false;
     private Fish ChosenTargetFishToEat;
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
     public List<TypeOfPlantEnum> HatedPlants { get; private set; }
@@ -50,14 +50,16 @@ public class Fish : MonoBehaviour
     void Update()
     {
         MoveHorizontal();
-        if (GoToHunt == true && TargetFishToEat != null)
+        if (GoHunt == true && TargetFishToEat != null)
         {
+            //if(FindObjectOfType<Food>())
+            { }
             float step = 1 * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetFishToEat.transform.position.y), step);
         }
         else if (TargetFishToEat == null)
         {
-            GoToHunt = false;
+            GoHunt = false;
             ChooseFishToEat(2);
         }
     }
@@ -65,7 +67,7 @@ public class Fish : MonoBehaviour
     private IEnumerator TimerToHunt(int timeInSeconds)
     {
         yield return new WaitForSeconds(timeInSeconds);
-        GoToHunt = true;
+        GoHunt = true;
     }
 
     private void ChooseFishToEat(int timeInSeconds)
