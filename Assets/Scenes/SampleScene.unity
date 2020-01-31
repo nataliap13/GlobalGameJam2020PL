@@ -990,40 +990,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 780646634}
     m_Modifications:
-    - target: {fileID: 3916639705979740275, guid: 89258da728c6bbe4aa0420b793ab8d48,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.9433962
-      objectReference: {fileID: 0}
-    - target: {fileID: 3916639705979740275, guid: 89258da728c6bbe4aa0420b793ab8d48,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.06674972
-      objectReference: {fileID: 0}
-    - target: {fileID: 3916639705979740275, guid: 89258da728c6bbe4aa0420b793ab8d48,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.06674972
-      objectReference: {fileID: 0}
     - target: {fileID: 3916639706465731276, guid: 89258da728c6bbe4aa0420b793ab8d48,
         type: 3}
       propertyPath: m_Name
       value: Fish
-      objectReference: {fileID: 0}
-    - target: {fileID: 3916639706465731278, guid: 89258da728c6bbe4aa0420b793ab8d48,
-        type: 3}
-      propertyPath: sizeOfFish
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3916639706465731278, guid: 89258da728c6bbe4aa0420b793ab8d48,
-        type: 3}
-      propertyPath: speed
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3916639706465731278, guid: 89258da728c6bbe4aa0420b793ab8d48,
-        type: 3}
-      propertyPath: typeOfFish
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3916639706465731279, guid: 89258da728c6bbe4aa0420b793ab8d48,
         type: 3}
