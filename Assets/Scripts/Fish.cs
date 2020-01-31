@@ -26,6 +26,19 @@ public class Fish : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Move();
+    }
 
+    public void Move()
+    {
+        gameObject.transform.Translate(speed * Time.deltaTime, 0, 0);
+    }
+
+    public void Flip ()
+    {
+        var localScale = gameObject.transform.localScale;
+        localScale.x *= -1;
+        gameObject.transform.localScale = localScale;
+        speed *= -1;
     }
 }
