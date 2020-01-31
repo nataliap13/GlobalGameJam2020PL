@@ -9,7 +9,7 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(TimerToHungry(5));
+        StartCoroutine(TimerToHungry(2));
     }
 
     const int maxHappiness = 100;
@@ -30,13 +30,8 @@ public class Fish : MonoBehaviour
         MoveHorizontal();
         if(TargetFishToEat != null)
         {
-            float step = speed * Time.deltaTime;
-
-            // move sprite towards the target location
-            var target = TargetFishToEat.transform.localPosition;
-            print(target);
-            var globalTargetPosition = transform.TransformPoint(TargetFishToEat.transform.localPosition);
-            transform.localPosition = Vector2.MoveTowards(transform.localPosition, new Vector2(transform.position.x, globalTargetPosition.y), step);
+            float step = 1 * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetFishToEat.transform.position.y), step);
         }
     }
 
