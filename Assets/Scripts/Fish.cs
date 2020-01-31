@@ -9,20 +9,20 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        likedPlants = new List<TypeOfPlantEnum>();
-        hatedPlants = new List<TypeOfPlantEnum>();
+        LikedPlants = new List<TypeOfPlantEnum>();
+        HatedPlants = new List<TypeOfPlantEnum>();
         switch (typeOfFish)
         {
             case typeOfFishEnum.peaceful:
                 {
-                    likedPlants.Add(TypeOfPlantEnum.Type1);
-                    hatedPlants.Add(TypeOfPlantEnum.Type2);
+                    LikedPlants.Add(TypeOfPlantEnum.Type1);
+                    HatedPlants.Add(TypeOfPlantEnum.Type2);
                     break;
                 }
             case typeOfFishEnum.aggresive:
                 {
-                    likedPlants.Add(TypeOfPlantEnum.Type2);
-                    hatedPlants.Add(TypeOfPlantEnum.Type1);
+                    LikedPlants.Add(TypeOfPlantEnum.Type2);
+                    HatedPlants.Add(TypeOfPlantEnum.Type1);
                     break;
                 }
         }
@@ -35,17 +35,11 @@ public class Fish : MonoBehaviour
         }
     }
 
-    const int maxHappiness = 100;
-    int hapiness = 50;
     public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
     private Fish TargetFishToEat;
-    public List<TypeOfPlantEnum> likedPlants { get; private set; }
-    public List<TypeOfPlantEnum> hatedPlants { get; private set; }
-
-    //minNumberOfFishToHapiness of my type/spiecies
-    public int minNumberOfFishToHapiness = 1;
-    public int maxNumberOfFishToHapiness = 1;
+    public List<TypeOfPlantEnum> LikedPlants { get; private set; }
+    public List<TypeOfPlantEnum> HatedPlants { get; private set; }
 
     public float speed = 5;
 

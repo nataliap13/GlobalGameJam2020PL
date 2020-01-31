@@ -25,7 +25,7 @@ public class Plant : MonoBehaviour
         if (fishFrontCollider != null)
         {
             var fish = fishFrontCollider.GetComponentInParent<Fish>();
-            if (fish.hatedPlants.Contains(TypeOfPlant))
+            if (fish.HatedPlants.Contains(TypeOfPlant))
             {
                 fish.Flip();
             }
@@ -38,7 +38,7 @@ public class Plant : MonoBehaviour
         if (fishFrontCollider != null)
         {
             var fish = fishFrontCollider.GetComponentInParent<Fish>();
-            if (fish.likedPlants.Contains(TypeOfPlant))
+            if (fish.LikedPlants.Contains(TypeOfPlant))
             {
                 fish.Flip();
             }
