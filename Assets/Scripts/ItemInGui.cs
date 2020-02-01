@@ -7,6 +7,7 @@ public class ItemInGui : MonoBehaviour
 {
     private Inventory inventory;
     public GameObject itemToSpawn;
+    public GameObject spriteOfItemToSpawn;
     public int cost = 100;
     [SerializeField]
     private Text costText;
@@ -22,11 +23,11 @@ public class ItemInGui : MonoBehaviour
     {
         if(freezeY)
         {
-            inventory.SelectObjectWithFreezeY(itemToSpawn, cost);
+            inventory.SelectObjectWithFreezeY(itemToSpawn, spriteOfItemToSpawn, cost);
         }
         else
         {
-            inventory.SelectObject(itemToSpawn, cost);
+            inventory.SelectObject(itemToSpawn, spriteOfItemToSpawn, cost);
         }
 
     }

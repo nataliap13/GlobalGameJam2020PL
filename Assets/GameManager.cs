@@ -84,17 +84,17 @@ public class GameManager : MonoBehaviour
 
     private void HideSelectedObject()
     {
-        if (inventory.objectToSpawn != null)
+        if (inventory.objToSpawn != null)
         {
-            inventory.objectToSpawn.SetActive(false);
+            inventory.objToSpawn.SetActive(false);
         }
     }
 
     private void ShowSelectedObject()
     {
-        if (inventory.objectToSpawn != null)
+        if (inventory.objToSpawn != null)
         {
-            inventory.objectToSpawn.SetActive(true);
+            inventory.objToSpawn.SetActive(true);
         }
     }
 

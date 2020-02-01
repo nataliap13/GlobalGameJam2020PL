@@ -8,11 +8,12 @@ public class Inventory : MonoBehaviour
     public int money = 100;
     public StatsManager statsManager;
     public GameObject itemsContainer;
-    public GameObject objectToSpawn;
+    public GameObject objToSpawn;
+    public GameObject spriteOfObjectToSpawn;
 
     private bool freezeY = false;
 
-    public void SelectObjectWithFreezeY(GameObject selectedObject, int cost)
+    public void SelectObjectWithFreezeY(GameObject objectToSpawn,GameObject sprite, int cost)
     {
         if(cost > money) { return; }
 
@@ -21,13 +22,13 @@ public class Inventory : MonoBehaviour
         money -= cost;
         statsManager.SetMoneyText(money);
 
-        objectToSpawn = Instantiate(selectedObject, Vector3.zero, Quaternion.identity);
-        objectToSpawn.transform.GetChild(0).gameObject.SetActive(false);
-        objectToSpawn.transform.parent = itemsContainer.transform;
-        objectToSpawn.transform.localScale = Vector3.one;
+        objToSpawn = objectToSpawn;
+        spriteOfObjectToSpawn = Instantiate(sprite, Vector3.zero, Quaternion.identity);
+        spriteOfObjectToSpawn.transform.parent = itemsContainer.transform;
+        spriteOfObjectToSpawn.transform.localScale = Vector3.one;
     }
 
-    public void SelectObject(GameObject selectedObject, int cost)
+    public void SelectObject(GameObject objectToSpawn, GameObject sprite, int cost)
     {
         if (cost > money) { return; }
 
@@ -36,10 +37,10 @@ public class Inventory : MonoBehaviour
         money -= cost;
         statsManager.SetMoneyText(money);
 
-        objectToSpawn = Instantiate(selectedObject, Vector3.zero, Quaternion.identity);
-        objectToSpawn.transform.GetChild(0).gameObject.SetActive(false);
-        objectToSpawn.transform.parent = itemsContainer.transform;
-        objectToSpawn.transform.localScale = Vector3.one;
+        objToSpawn = objectToSpawn;
+        spriteOfObjectToSpawn = Instantiate(sprite, Vector3.zero, Quaternion.identity);
+        spriteOfObjectToSpawn.transform.parent = itemsContainer.transform;
+        spriteOfObjectToSpawn.transform.localScale = Vector3.one;
     }
 
     private void Start()
@@ -49,31 +50,38 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (objectToSpawn != null)
+        if (spriteOfObjectToSpawn != null)
         {
             var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if(freezeY)
             {
                 var objectPosition = new Vector3(mousePosition.x, 0, 0);
-                objectToSpawn.transform.position = objectPosition;
+                spriteOfObjectToSpawn.transform.position = objectPosition;
             }
             else
             {
                 var objectPosition = new Vector3(mousePosition.x, mousePosition.y, 0);
-                objectToSpawn.transform.position = objectPosition;
+                spriteOfObjectToSpawn.transform.position = objectPosition;
             }
 
 
         }
 
-        if (Input.GetMouseButtonDown(0) && objectToSpawn != null)
+        if (Input.GetMouseButtonDown(0) && spriteOfObjectToSpawn != null)
         {
-            objectToSpawn.transform.GetChild(0).gameObject.SetActive(true);
-            var objectPosition = objectToSpawn.transform.position;
-            objectPosition.z = objectToSpawn.transform.parent.position.z;
-            objectToSpawn.transform.position = objectPosition;
-            objectToSpawn = null;
+            var objectPosition = spriteOfObjectToSpawn.transform.position;
+            objectPosition.z = spriteOfObjectToSpawn.transform.parent.position.z;
+            var go = Instantiate(objToSpawn, objectPosition, Quaternion.identity);
+
+            go.transform.parent = spriteOfObjectToSpawn.transform.parent;
+            go.transform.localScale = Vector3.one;
+            go.transform.position = objectPosition;
+
+
+            Destroy(spriteOfObjectToSpawn);
+            objToSpawn = null;
+            spriteOfObjectToSpawn = null;
 
         }
     }
