@@ -41,6 +41,9 @@ public class Inventory : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && objectToSpawn != null)
         {
             objectToSpawn.GetComponent<BoxCollider2D>().enabled = true;
+            var objectPosition = objectToSpawn.transform.position;
+            objectPosition.z = objectToSpawn.transform.parent.position.z;
+            objectToSpawn.transform.position = objectPosition;
             objectToSpawn = null;
 
         }
