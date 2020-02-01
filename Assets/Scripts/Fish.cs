@@ -22,9 +22,18 @@ public class Fish : MonoBehaviour
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        if(typeOfFish == typeOfFishEnum.meatEating)
+        switch (typeOfFish)
         {
-            gameManager.meatEatingFishAlive.Add(this);
+            case typeOfFishEnum.meatEating:
+                {
+                    gameManager.meatEatingFishAlive.Add(this);
+                    break;
+                }
+            case typeOfFishEnum.plantEating:
+                {
+                    gameManager.plantEatingFishAlive.Add(this);
+                    break;
+                }
         }
     }
 
@@ -60,7 +69,7 @@ public class Fish : MonoBehaviour
         if (GoHunt == true && TargetToEat != null)
         {
             float step = 1 * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, TargetToEat.transform.position.y,transform.position.z), step);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, TargetToEat.transform.position.y, transform.position.z), step);
             //fix strange bug with strange Z
             var pos = transform.localPosition;
             pos.z = 0;
