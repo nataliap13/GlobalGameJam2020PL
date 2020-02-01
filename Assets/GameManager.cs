@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public float levelTime = 20f;
+    public GameObject winLevelCanvas;
+    public GameObject loseLevelCanvas;
+    public GameObject pauseMenuCanvas;
 
     private List<Fish> fishAlive;
     private int defaultFishCount;
@@ -13,6 +16,14 @@ public class GameManager : MonoBehaviour
     {
         fishAlive = new List<Fish>(FindObjectsOfType<Fish>());
         defaultFishCount = fishAlive.Count;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu();
+        }
     }
 
     private IEnumerator FishAliveWatcher()
@@ -26,11 +37,40 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()
     {
-        //ekran wygranej
+        Time.timeScale = 0f;
+        winLevelCanvas.SetActive(true);
     }
 
     public void LoseLevel()
     {
-        //ekran przegranej
+        Time.timeScale = 0f;
+        loseLevelCanvas.SetActive(true);
+    }
+
+    public void PauseMenu()
+    {
+        if(pauseMenuCanvas.activeInHierarchy)
+        {
+            Time.timeScale = 1f;
+            pauseMenuCanvas.SetActive(false);
+        }else
+        {
+            Time.timeScale = 0f;
+            pauseMenuCanvas.SetActive(true);
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
+
+    public void RestartLevel()
+    {
+        var activeScene = SceneManager.GetActiveScene();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(activeScene.buildIndex);
+
     }
 }

@@ -38,13 +38,13 @@ public class StatsManager : MonoBehaviour
 
     private void Countdown()
     {
+        if (timeLeft <= 0)
+        {
+            gameManager.WinLevel();
+            return;
+        }
         timeLeft -= Time.deltaTime;
         SetTimeGUI();
-
-        if(timeLeft<=0)
-        {
-            gameManager.LoseLevel();
-        }
     }
 
     private void SetTimeGUI()
