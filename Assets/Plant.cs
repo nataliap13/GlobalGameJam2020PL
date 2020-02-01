@@ -5,10 +5,13 @@ using UnityEngine;
 public enum TypeOfPlantEnum { Type1, Type2, Type3 }
 public class Plant : MonoBehaviour
 {
+
+    public int maxHp = 100;
+    private int currentHp;
     // Start is called before the first frame update
     void Start()
     {
-
+        currentHp = maxHp;
     }
 
     public TypeOfPlantEnum TypeOfPlant = TypeOfPlantEnum.Type1;

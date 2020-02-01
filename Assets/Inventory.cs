@@ -5,17 +5,28 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public int money = 100;
+    public StatsManager statsManager;
     public GameObject itemsContainer;
     private GameObject objectToSpawn;
 
-    public void SelectObject(GameObject selectedObject)
+    public void SelectObject(GameObject selectedObject, int cost)
     {
+        if(cost > money) { return; }
+
+        money -= cost;
+        statsManager.SetMoneyText(money);
+
         objectToSpawn = Instantiate(selectedObject, Vector3.zero, Quaternion.identity);
         objectToSpawn.GetComponent<BoxCollider2D>().enabled = false;
         objectToSpawn.transform.parent = itemsContainer.transform;
         objectToSpawn.transform.localScale = Vector3.one;
     }
 
+    private void Start()
+    {
+        statsManager.SetMoneyText(money);
+    }
 
     private void Update()
     {

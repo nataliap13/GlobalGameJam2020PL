@@ -40,7 +40,6 @@ public class Fish : MonoBehaviour
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
     private Fish TargetFishToEat;
     private bool GoHunt = false;
-    private Fish ChosenTargetFishToEat;
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
     public List<TypeOfPlantEnum> HatedPlants { get; private set; }
 

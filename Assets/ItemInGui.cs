@@ -20,6 +20,6 @@ public class ItemInGui : MonoBehaviour
 
     public void SelectItem()
     {
-        inventory.SelectObject(itemToSpawn);
+        inventory.SelectObject(itemToSpawn, cost);
     }
 }
