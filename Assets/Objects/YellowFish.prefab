@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62661233911e64e42ae7a47ec5498f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfFish: 1
+  typeOfFish: 0
   sizeOfFish: 1
+  eatPlants: 0
 --- !u!50 &3916639706465731264
 Rigidbody2D:
   serializedVersion: 4
@@ -258,7 +259,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.18}
+  m_Size: {x: 0.03, y: 0.18}
   m_EdgeRadius: 0
 --- !u!114 &1052545216976373743
 MonoBehaviour:

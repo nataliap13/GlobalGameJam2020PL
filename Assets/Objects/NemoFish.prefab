@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfFish: 0
   sizeOfFish: 0
+  eatPlants: 0
 --- !u!50 &4324192374529533219
 Rigidbody2D:
   serializedVersion: 4
@@ -258,7 +259,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.12}
+  m_Size: {x: 0.03, y: 0.12}
   m_EdgeRadius: 0
 --- !u!114 &343198597555445772
 MonoBehaviour:

@@ -8,13 +8,14 @@ public class Plant : MonoBehaviour
 
     public int maxHp = 100;
     private int currentHp;
+    public TypeOfPlantEnum TypeOfPlant = TypeOfPlantEnum.Type1;
+
     // Start is called before the first frame update
     void Start()
     {
         currentHp = maxHp;
     }
 
-    public TypeOfPlantEnum TypeOfPlant = TypeOfPlantEnum.Type1;
 
     // Update is called once per frame
     void Update()

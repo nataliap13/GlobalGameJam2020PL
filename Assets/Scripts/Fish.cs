@@ -4,8 +4,18 @@ using UnityEngine;
 
 public enum typeOfFishEnum { peaceful, aggresive }
 public enum sizeOfFishEnum { small, medium, big }
+
 public class Fish : MonoBehaviour
 {
+    public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
+    public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
+    private GameObject TargetToEat;
+    private bool GoHunt = false;
+    public List<TypeOfPlantEnum> LikedPlants { get; private set; }
+    public List<TypeOfPlantEnum> HatedPlants { get; private set; }
+    private float speed = 4;
+    public bool eatPlants = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,37 +38,22 @@ public class Fish : MonoBehaviour
         }
 
         if (transform.localScale.x < 0)
-        {
-            speed *= -1;
-        }
-
-        ChooseFishToEat(2);
+        { speed *= -1; }
     }
-
-    public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
-    public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
-    private Fish TargetFishToEat;
-    private bool GoHunt = false;
-    public List<TypeOfPlantEnum> LikedPlants { get; private set; }
-    public List<TypeOfPlantEnum> HatedPlants { get; private set; }
-
-    private float speed = 5;
 
     // Update is called once per frame
     void Update()
     {
         MoveHorizontal();
-        if (GoHunt == true && TargetFishToEat != null)
+        if (GoHunt == true && TargetToEat != null)
         {
-            //if(FindObjectOfType<Food>())
-            { }
             float step = 1 * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetFishToEat.transform.position.y), step);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetToEat.transform.position.y), step);
         }
-        else if (TargetFishToEat == null)
+        else if (typeOfFish == typeOfFishEnum.aggresive && TargetToEat == null)
         {
             GoHunt = false;
-            ChooseFishToEat(2);
+            ChooseTargetToEat(2);
         }
     }
 
@@ -68,17 +63,25 @@ public class Fish : MonoBehaviour
         GoHunt = true;
     }
 
-    private void ChooseFishToEat(int timeInSeconds)
+    private void ChooseTargetToEat(int timeInSeconds)
     {
+        var food = FindObjectsOfType<Food>();
         var fish = FindObjectsOfType<Fish>();
+
+        foreach (var f in food)
+        {
+            TargetToEat = f.gameObject;
+            StartCoroutine(TimerToHunt(2));
+            return;
+        }
 
         foreach (var f in fish)
         {
             if (f.sizeOfFish < sizeOfFish)
             {
-                TargetFishToEat = f;
+                TargetToEat = f.gameObject;
                 StartCoroutine(TimerToHunt(2));
-                break;
+                return;
             }
         }
     }
@@ -99,12 +102,26 @@ public class Fish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var otherFish = collision.GetComponent<Fish>();
-        if (otherFish != null)
+        if (TargetToEat != null)
         {
-            if (sizeOfFish > otherFish.sizeOfFish)
+            var food = collision.GetComponent<Food>();
+            var targetFood = TargetToEat.GetComponent<Food>();
+            if (food != null && targetFood != null && food == targetFood)
+            {
+                Destroy(food.gameObject);
+                print(gameObject.name + " ate " + collision.gameObject.name);
+                GoHunt = false;
+                return;
+            }
+
+            var otherFish = collision.GetComponent<Fish>();
+            var targetFish = TargetToEat.GetComponent<Fish>();
+            if (otherFish != null && targetFish != null && otherFish == targetFish)
             {
                 Destroy(otherFish.gameObject);
+                print(gameObject.name + " ate " + collision.gameObject.name);
+                GoHunt = false;
+                return;
             }
         }
     }
