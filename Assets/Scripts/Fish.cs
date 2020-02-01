@@ -26,7 +26,6 @@ public class Fish : MonoBehaviour
         {
             gameManager.aggressiveFishAlive.Add(this);
         }
-
     }
 
     // Start is called before the first frame update
@@ -83,8 +82,11 @@ public class Fish : MonoBehaviour
 
     public void ChooseTargetToEat(int timeInSeconds)
     {
-        ideaEatManager.SetTargetSprite(typeOfFish);
-        ideaEatManager.SetActive(true);
+        if (timeInSeconds > 0)
+        {//pop up think cloud
+            ideaEatManager.SetTargetSprite(typeOfFish);
+            ideaEatManager.SetActive(true);
+        }
 
         var food = FindObjectsOfType<Food>();
         foreach (var f in food)

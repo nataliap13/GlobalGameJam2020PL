@@ -2005,7 +2005,6 @@ GameObject:
   - component: {fileID: 1955268673573964406}
   - component: {fileID: 8649312363080028576}
   - component: {fileID: 2880561851449188814}
-  - component: {fileID: 2447355654766836413}
   m_Layer: 5
   m_Name: CanvasLevel
   m_TagString: Untagged
@@ -2095,23 +2094,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2447355654766836413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8520739982987413892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a8a6f86c8303d74981ac0db45fcff4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelTime: 20
-  winLevelCanvas: {fileID: 0}
-  loseLevelCanvas: {fileID: 0}
-  pauseMenuCanvas: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!1001 &3093750344653155578
 PrefabInstance:
   m_ObjectHideFlags: 0
