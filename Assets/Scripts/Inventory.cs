@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
     public GameObject spriteOfObjectToSpawn;
     private GameManager gameManager;
 
-    private float[] fixedYPositions = { 0.45f, 0.25f, 0.05f, -0.15f };
+    private float[] fixedYPositions = { 0.40f, 0.20f, 0f, -0.2f };
 
     private bool freezeY = false;
 
@@ -67,7 +67,11 @@ public class Inventory : MonoBehaviour
             }
             else
             {
-                var objectPosition = new Vector3(mousePosition.x, mousePosition.y, 0);
+                var yRounded = Mathf.Clamp(mousePosition.y, -3f, 3f);
+                yRounded = Mathf.Round(yRounded);
+                print(yRounded);
+
+                var objectPosition = new Vector3(mousePosition.x, yRounded, 0);
                 spriteOfObjectToSpawn.transform.position = objectPosition;
             }
         }
