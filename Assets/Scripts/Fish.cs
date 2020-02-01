@@ -73,6 +73,7 @@ public class Fish : MonoBehaviour
         foreach (var f in food)
         {
             TargetToEat = f.gameObject;
+            //gameObject.chi
             StartCoroutine(TimerToHunt(2));
             return;
         }
