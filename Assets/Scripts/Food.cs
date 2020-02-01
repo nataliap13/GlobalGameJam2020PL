@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum typeOfFood { meat, plant}
+public enum typeOfFoodEnum { meat, plant}
 
 public class Food : MonoBehaviour
 {
-    public typeOfFood type;
+    public typeOfFoodEnum typeOfFood;
     public float animationSpeed = 5f;
 
     // Start is called before the first frame update

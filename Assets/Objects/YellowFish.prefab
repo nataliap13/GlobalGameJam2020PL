@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62661233911e64e42ae7a47ec5498f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeOfFish: 0
+  typeOfFood: 1
   sizeOfFish: 1
   ideaEatManager: {fileID: 499249063863681371}
   eatPlants: 0

@@ -77,7 +77,7 @@ public class Inventory : MonoBehaviour
             var objectPosition = spriteOfObjectToSpawn.transform.position;
             objectPosition.z = spriteOfObjectToSpawn.transform.parent.position.z;
             var go = Instantiate(objToSpawn, objectPosition, Quaternion.identity);
-
+            //print("Utworzono " + go.name);
             go.transform.parent = spriteOfObjectToSpawn.transform.parent;
             go.transform.localScale = Vector3.one;
             go.transform.position = objectPosition;
@@ -90,7 +90,7 @@ public class Inventory : MonoBehaviour
 
             if(food!=null)
             {
-                if(food.type == typeOfFood.meat)
+                if(food.typeOfFood == typeOfFoodEnum.meat)
                 {
                     gameManager.MakeAllMeatFishToSearchForNewTarget();
                 }else
