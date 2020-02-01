@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1, y: 0}
+  m_Offset: {x: 0.18, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.15}
+  m_Size: {x: 0.05, y: 0.23}
   m_EdgeRadius: 0
 --- !u!114 &8724672089162489890
 MonoBehaviour:
@@ -120,7 +120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfFish: 1
   sizeOfFish: 1
-  speed: -5
 --- !u!50 &4743860826823648525
 Rigidbody2D:
   serializedVersion: 4
@@ -166,7 +165,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15, y: 0.15}
+  m_Size: {x: 0.28, y: 0.23}
   m_EdgeRadius: 0
 --- !u!95 &8690028654152526901
 Animator:
@@ -198,7 +197,7 @@ GameObject:
   - component: {fileID: 4743860827310688189}
   - component: {fileID: 4743860827310688190}
   m_Layer: 5
-  m_Name: New Sprite
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

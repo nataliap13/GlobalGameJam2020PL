@@ -27,9 +27,8 @@ public class Fish : MonoBehaviour
                 }
         }
 
-        if (speed < 0)
+        if (transform.localScale.x < 0)
         {
-            Flip();
             speed *= -1;
         }
 
@@ -43,7 +42,7 @@ public class Fish : MonoBehaviour
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
     public List<TypeOfPlantEnum> HatedPlants { get; private set; }
 
-    public float speed = 5;
+    private float speed = 5;
 
     // Update is called once per frame
     void Update()
@@ -85,15 +84,10 @@ public class Fish : MonoBehaviour
     }
 
     private void MoveHorizontal()
-    {
-        transform.Translate(speed * Time.deltaTime, 0, 0);
-    }
+    { transform.Translate(speed * Time.deltaTime, 0, 0); }
 
     private void MoveVertical()
-    {
-
-        transform.Translate(0, speed * Time.deltaTime, 0);
-    }
+    { transform.Translate(0, speed * Time.deltaTime, 0); }
 
     public void Flip()
     {
