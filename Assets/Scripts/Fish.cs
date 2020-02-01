@@ -59,7 +59,7 @@ public class Fish : MonoBehaviour
         else if (typeOfFish == typeOfFishEnum.meatEating && TargetToEat == null)
         {
             GoHunt = false;
-            ChooseTargetToEat(2);
+            ChooseTargetToEat(4);
         }
     }
 
@@ -72,13 +72,14 @@ public class Fish : MonoBehaviour
 
     private void ChooseTargetToEat(int timeInSeconds)
     {
+        ideaEatManager.SetTargetSprite(typeOfFish);
+        ideaEatManager.SetActive(true);
+
         var food = FindObjectsOfType<Food>();
         foreach (var f in food)
         {
             TargetToEat = f.gameObject;
-            ideaEatManager.SetTargetSprite(f.gameObject);
-            ideaEatManager.SetActive(true);
-            StartCoroutine(TimerToHunt(2));
+            StartCoroutine(TimerToHunt(timeInSeconds));
             return;
         }
 
@@ -88,9 +89,7 @@ public class Fish : MonoBehaviour
             if (f.sizeOfFish < sizeOfFish)
             {
                 TargetToEat = f.gameObject;
-                ideaEatManager.SetTargetSprite(f.gameObject);
-                ideaEatManager.SetActive(true);
-                StartCoroutine(TimerToHunt(2));
+                StartCoroutine(TimerToHunt(timeInSeconds));
                 return;
             }
         }
