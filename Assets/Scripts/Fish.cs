@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum typeOfFishEnum { peaceful, aggresive }
+public enum typeOfFishEnum { plantEating, meatEating }
 public enum sizeOfFishEnum { small, medium, big }
 
 public class Fish : MonoBehaviour
 {
-    public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
+    public typeOfFishEnum typeOfFish = typeOfFishEnum.plantEating;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
     public IdeaEatManager ideaEatManager;//set In Unity
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
@@ -25,13 +25,13 @@ public class Fish : MonoBehaviour
         HatedPlants = new List<TypeOfPlantEnum>();
         switch (typeOfFish)
         {
-            case typeOfFishEnum.peaceful:
+            case typeOfFishEnum.plantEating:
                 {
                     LikedPlants.Add(TypeOfPlantEnum.Type1);
                     HatedPlants.Add(TypeOfPlantEnum.Type2);
                     break;
                 }
-            case typeOfFishEnum.aggresive:
+            case typeOfFishEnum.meatEating:
                 {
                     LikedPlants.Add(TypeOfPlantEnum.Type2);
                     HatedPlants.Add(TypeOfPlantEnum.Type1);
@@ -56,10 +56,10 @@ public class Fish : MonoBehaviour
             pos.z = 0;
             transform.localPosition = pos;
         }
-        else if (typeOfFish == typeOfFishEnum.aggresive && TargetToEat == null)
+        else if (typeOfFish == typeOfFishEnum.meatEating && TargetToEat == null)
         {
             GoHunt = false;
-            ChooseTargetToEat(2);
+            ChooseTargetToEat(4);
         }
     }
 
@@ -72,13 +72,14 @@ public class Fish : MonoBehaviour
 
     private void ChooseTargetToEat(int timeInSeconds)
     {
+        ideaEatManager.SetTargetSprite(typeOfFish);
+        ideaEatManager.SetActive(true);
+
         var food = FindObjectsOfType<Food>();
         foreach (var f in food)
         {
             TargetToEat = f.gameObject;
-            ideaEatManager.SetTargetSprite(f.gameObject);
-            ideaEatManager.SetActive(true);
-            StartCoroutine(TimerToHunt(2));
+            StartCoroutine(TimerToHunt(timeInSeconds));
             return;
         }
 
@@ -88,9 +89,7 @@ public class Fish : MonoBehaviour
             if (f.sizeOfFish < sizeOfFish)
             {
                 TargetToEat = f.gameObject;
-                ideaEatManager.SetTargetSprite(f.gameObject);
-                ideaEatManager.SetActive(true);
-                StartCoroutine(TimerToHunt(2));
+                StartCoroutine(TimerToHunt(timeInSeconds));
                 return;
             }
         }
