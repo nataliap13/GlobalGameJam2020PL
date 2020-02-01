@@ -70,7 +70,7 @@ public class Fish : MonoBehaviour
         GoHunt = true;
     }
 
-    private void ChooseTargetToEat(int timeInSeconds)
+    public void ChooseTargetToEat(int timeInSeconds)
     {
         ideaEatManager.SetTargetSprite(typeOfFish);
         ideaEatManager.SetActive(true);

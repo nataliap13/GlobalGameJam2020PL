@@ -13,11 +13,15 @@ public class GameManager : MonoBehaviour
 
     private List<Fish> fishAlive;
     private int defaultFishCount;
-    private void Awake()
+
+    private void Awake()//execute before start
     {
         fishAlive = new List<Fish>(FindObjectsOfType<Fish>());
         defaultFishCount = fishAlive.Count;
     }
+
+    public void MakeAllFishToSearchForNewTarget()
+    { }
 
     private void Update()
     {
