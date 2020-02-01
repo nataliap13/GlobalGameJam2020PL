@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public enum typeOfFishEnum { plantEating, meatEating }
 public enum sizeOfFishEnum { small, medium, big }
 
 public class Fish : MonoBehaviour
 {
-    public typeOfFishEnum typeOfFish = typeOfFishEnum.plantEating;
+    public typeOfFoodEnum typeOfFood = typeOfFoodEnum.plant;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
     public IdeaEatManager ideaEatManager;//set In Unity
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
     public List<TypeOfPlantEnum> HatedPlants { get; private set; }
+    public List<TypeOfPlantEnum> EatenPlants { get; private set; }
     public bool eatPlants = false;
 
     private GameObject TargetToEat;
@@ -22,9 +23,35 @@ public class Fish : MonoBehaviour
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        if(typeOfFish == typeOfFishEnum.meatEating)
+        switch (typeOfFood)
         {
-            gameManager.meatEatingFishAlive.Add(this);
+            case typeOfFoodEnum.meat:
+                {
+                    gameManager.meatEatingFishAlive.Add(this);
+                    break;
+                }
+            case typeOfFoodEnum.plant:
+                {
+                    gameManager.plantEatingFishAlive.Add(this);
+                    break;
+                }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        switch (typeOfFood)
+        {
+            case typeOfFoodEnum.meat:
+                {
+                    gameManager.meatEatingFishAlive.Remove(this);
+                    break;
+                }
+            case typeOfFoodEnum.plant:
+                {
+                    gameManager.plantEatingFishAlive.Remove(this);
+                    break;
+                }
         }
     }
 
@@ -33,15 +60,16 @@ public class Fish : MonoBehaviour
     {
         LikedPlants = new List<TypeOfPlantEnum>();
         HatedPlants = new List<TypeOfPlantEnum>();
-        switch (typeOfFish)
+        EatenPlants = new List<TypeOfPlantEnum>();
+        switch (typeOfFood)
         {
-            case typeOfFishEnum.plantEating:
+            case typeOfFoodEnum.plant:
                 {
                     LikedPlants.Add(TypeOfPlantEnum.Type1);
                     HatedPlants.Add(TypeOfPlantEnum.Type2);
                     break;
                 }
-            case typeOfFishEnum.meatEating:
+            case typeOfFoodEnum.meat:
                 {
                     LikedPlants.Add(TypeOfPlantEnum.Type2);
                     HatedPlants.Add(TypeOfPlantEnum.Type1);
@@ -60,13 +88,13 @@ public class Fish : MonoBehaviour
         if (GoHunt == true && TargetToEat != null)
         {
             float step = 1 * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, TargetToEat.transform.position.y,transform.position.z), step);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, TargetToEat.transform.position.y, transform.position.z), step);
             //fix strange bug with strange Z
             var pos = transform.localPosition;
             pos.z = 0;
             transform.localPosition = pos;
         }
-        else if (typeOfFish == typeOfFishEnum.meatEating && TargetToEat == null)
+        else if (TargetToEat == null)
         {
             GoHunt = false;
             ChooseTargetToEat(4);
@@ -84,11 +112,11 @@ public class Fish : MonoBehaviour
     {
         if (timeInSeconds > 0)
         {//pop up think cloud
-            ideaEatManager.SetTargetSprite(typeOfFish);
+            ideaEatManager.SetTargetSprite(typeOfFood);
             ideaEatManager.SetActive(true);
         }
 
-        var food = FindObjectsOfType<Food>();
+        var food = FindObjectsOfType<Food>().Where(x => x.typeOfFood == typeOfFood);
         foreach (var f in food)
         {
             TargetToEat = f.gameObject;
@@ -96,15 +124,36 @@ public class Fish : MonoBehaviour
             return;
         }
 
-        var fish = FindObjectsOfType<Fish>();
-        foreach (var f in fish)
+        switch (typeOfFood)
         {
-            if (f.sizeOfFish < sizeOfFish)
-            {
-                TargetToEat = f.gameObject;
-                StartCoroutine(TimerToHunt(timeInSeconds));
-                return;
-            }
+            case typeOfFoodEnum.meat:
+                {
+                    var fish = FindObjectsOfType<Fish>();
+                    foreach (var f in fish)
+                    {
+                        if (f.sizeOfFish < sizeOfFish)
+                        {
+                            TargetToEat = f.gameObject;
+                            StartCoroutine(TimerToHunt(timeInSeconds));
+                            return;
+                        }
+                    }
+                    break;
+                }
+            case typeOfFoodEnum.plant:
+                {
+                    var plants = FindObjectsOfType<Plant>();
+                    foreach (var p in plants)
+                    {
+                        if (EatenPlants.Contains(p.TypeOfPlant))
+                        {
+                            TargetToEat = p.gameObject;
+                            StartCoroutine(TimerToHunt(timeInSeconds));
+                            return;
+                        }
+                    }
+                    break;
+                }
         }
     }
 

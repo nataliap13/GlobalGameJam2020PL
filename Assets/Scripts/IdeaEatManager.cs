@@ -7,16 +7,16 @@ public class IdeaEatManager : MonoBehaviour
     public SpriteRenderer fishSprite;
     public Sprite SpriteMeat;
     public Sprite SpritePlant;
-    public void SetTargetSprite(typeOfFishEnum typeOfFish)
+    public void SetTargetSprite(typeOfFoodEnum typeOfFoodThiFishEat)
     {
-        switch (typeOfFish)
+        switch (typeOfFoodThiFishEat)
         {
-            case typeOfFishEnum.plantEating:
+            case typeOfFoodEnum.plant:
                 {
                     fishSprite.sprite = SpritePlant;
                     break;
                 }
-            case typeOfFishEnum.meatEating:
+            case typeOfFoodEnum.meat:
                 {
                     fishSprite.sprite = SpriteMeat;
                     break;

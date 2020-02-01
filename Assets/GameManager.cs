@@ -10,16 +10,12 @@ public class GameManager : MonoBehaviour
     public GameObject loseLevelCanvas;
     public GameObject pauseMenuCanvas;
     public Inventory inventory;
-
-    private List<Fish> fishAlive;
+    
     public List<Fish> meatEatingFishAlive;
     public List<Fish> plantEatingFishAlive;
-    private int defaultFishCount;
 
     private void Awake()//execute before start
     {
-        fishAlive = new List<Fish>(FindObjectsOfType<Fish>());
-        defaultFishCount = fishAlive.Count;
     }
 
     public void MakeAllMeatFishToSearchForNewTarget()
