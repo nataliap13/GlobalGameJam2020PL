@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8a6f86c8303d74981ac0db45fcff4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTime: 3
+  levelTime: 20
   winLevelCanvas: {fileID: 1849029987}
   loseLevelCanvas: {fileID: 988283221}
   pauseMenuCanvas: {fileID: 8201946454876709583}

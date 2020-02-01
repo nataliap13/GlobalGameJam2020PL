@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         HideSelectedObject();
         loseLevelCanvas.SetActive(true);
-
     }
 
     public void PauseMenu()
