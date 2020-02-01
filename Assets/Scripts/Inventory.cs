@@ -8,8 +8,8 @@ public class Inventory : MonoBehaviour
     public int money = 100;
     public StatsManager statsManager;
     public GameObject itemsContainer;
-    public GameObject objToSpawn;
-    public GameObject spriteOfObjectToSpawn;
+    private GameObject objToSpawn;
+    private GameObject spriteOfObjectToSpawn;
 
     private bool freezeY = false;
 

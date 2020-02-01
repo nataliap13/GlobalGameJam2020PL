@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     private IEnumerator FishAliveWatcher()
     {
         if(fishAlive.Count < defaultFishCount)
