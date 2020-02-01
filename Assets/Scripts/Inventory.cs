@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
         statsManager.SetMoneyText(money);
 
         objectToSpawn = Instantiate(selectedObject, Vector3.zero, Quaternion.identity);
-        objectToSpawn.GetComponent<Collider2D>().enabled = false;
+        objectToSpawn.transform.GetChild(0).gameObject.SetActive(false);
         objectToSpawn.transform.parent = itemsContainer.transform;
         objectToSpawn.transform.localScale = Vector3.one;
     }
@@ -31,11 +31,13 @@ public class Inventory : MonoBehaviour
     {
         if (cost > money) { return; }
 
+        freezeY = false;
+
         money -= cost;
         statsManager.SetMoneyText(money);
 
         objectToSpawn = Instantiate(selectedObject, Vector3.zero, Quaternion.identity);
-        objectToSpawn.GetComponent<Collider2D>().enabled = false;
+        objectToSpawn.transform.GetChild(0).gameObject.SetActive(false);
         objectToSpawn.transform.parent = itemsContainer.transform;
         objectToSpawn.transform.localScale = Vector3.one;
     }
@@ -67,7 +69,7 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && objectToSpawn != null)
         {
-            objectToSpawn.GetComponent<Collider2D>().enabled = true;
+            objectToSpawn.transform.GetChild(0).gameObject.SetActive(true);
             var objectPosition = objectToSpawn.transform.position;
             objectPosition.z = objectToSpawn.transform.parent.position.z;
             objectToSpawn.transform.position = objectPosition;
