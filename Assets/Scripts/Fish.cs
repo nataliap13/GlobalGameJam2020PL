@@ -24,7 +24,7 @@ public class Fish : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         if(typeOfFish == typeOfFishEnum.meatEating)
         {
-            gameManager.aggressiveFishAlive.Add(this);
+            gameManager.meatEatingFishAlive.Add(this);
         }
     }
 

@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     public Inventory inventory;
 
     private List<Fish> fishAlive;
-    public List<Fish> aggressiveFishAlive;
+    public List<Fish> meatEatingFishAlive;
+    public List<Fish> plantEatingFishAlive;
     private int defaultFishCount;
 
     private void Awake()//execute before start
@@ -23,9 +24,9 @@ public class GameManager : MonoBehaviour
 
     public void MakeAllAggressiveFishToSearchForNewTarget()
     {
-        for (int i = 0; i < aggressiveFishAlive.Count; i++)
+        for (int i = 0; i < meatEatingFishAlive.Count; i++)
         {
-            aggressiveFishAlive[i].ChooseTargetToEat(0);
+            meatEatingFishAlive[i].ChooseTargetToEat(0);
         }
     }
 
