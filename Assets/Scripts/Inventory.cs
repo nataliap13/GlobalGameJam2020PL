@@ -11,6 +11,8 @@ public class Inventory : MonoBehaviour
     public GameObject objToSpawn;
     public GameObject spriteOfObjectToSpawn;
 
+    private float[] fixedYPositions = { 0.45f, 0.25f, 0.05f, -0.15f };
+
     private bool freezeY = false;
 
     public void SelectObjectWithFreezeY(GameObject objectToSpawn, GameObject sprite, int cost)
@@ -64,8 +66,6 @@ public class Inventory : MonoBehaviour
                 var objectPosition = new Vector3(mousePosition.x, mousePosition.y, 0);
                 spriteOfObjectToSpawn.transform.position = objectPosition;
             }
-
-
         }
 
         if (Input.GetMouseButtonDown(0) && spriteOfObjectToSpawn != null)

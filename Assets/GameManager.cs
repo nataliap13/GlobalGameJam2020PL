@@ -37,16 +37,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    private IEnumerator FishAliveWatcher()
-    {
-        if(fishAlive.Count < defaultFishCount)
-        {
-            LoseLevel();
-        }
-        yield return new WaitForSeconds(1f);
-    }
-
     public void WinLevel()
     {
         print("WinLevelMethod");
