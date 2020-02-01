@@ -14,6 +14,7 @@ public class StatsManager : MonoBehaviour
     private Text timeLeftText;
     [SerializeField]
     private Image timerImage;
+    private bool winLevelShowed = false;
 
     private void Awake()
     {
@@ -38,8 +39,9 @@ public class StatsManager : MonoBehaviour
 
     private void Countdown()
     {
-        if (timeLeft <= 0)
+        if (winLevelShowed == false && timeLeft <= 0)
         {
+            winLevelShowed = true;
             gameManager.WinLevel();
             return;
         }
