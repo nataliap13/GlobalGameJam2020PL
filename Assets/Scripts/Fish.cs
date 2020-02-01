@@ -49,6 +49,10 @@ public class Fish : MonoBehaviour
         {
             float step = 1 * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetToEat.transform.position.y), step);
+            //fix strange bug with strange Z
+            var pos = transform.localPosition;
+            pos.z = 0;
+            transform.localPosition = pos;
         }
         else if (typeOfFish == typeOfFishEnum.aggresive && TargetToEat == null)
         {

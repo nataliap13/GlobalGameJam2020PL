@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()
     {
+        print("WinLevelMethod");
         Time.timeScale = 0f;
         winLevelCanvas.SetActive(true);
     }
