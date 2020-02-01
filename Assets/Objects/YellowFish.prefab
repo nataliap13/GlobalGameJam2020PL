@@ -119,6 +119,7 @@ Transform:
   m_Children:
   - {fileID: 3916639705979740272}
   - {fileID: 7023458049337625436}
+  - {fileID: 6314142337558948859}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfFish: 0
   sizeOfFish: 1
+  ideaEatManager: {fileID: 499249063863681371}
   eatPlants: 0
 --- !u!50 &3916639706465731264
 Rigidbody2D:
@@ -271,5 +273,97 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 162824b06bc3a2c4eb08a2a786546837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &996067794381728015
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3916639706465731279}
+    m_Modifications:
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.118
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660993094642362543, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_Name
+      value: IdeaEat
+      objectReference: {fileID: 0}
+    - target: {fileID: 7660993094642362543, guid: 8093f3cbf3d65184db5259e69337df21,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8093f3cbf3d65184db5259e69337df21, type: 3}
+--- !u!4 &6314142337558948859 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6517528214168978164, guid: 8093f3cbf3d65184db5259e69337df21,
+    type: 3}
+  m_PrefabInstance: {fileID: 996067794381728015}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &499249063863681371 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 810381856789686356, guid: 8093f3cbf3d65184db5259e69337df21,
+    type: 3}
+  m_PrefabInstance: {fileID: 996067794381728015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c798d06922097c2449341a9c9244f5a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

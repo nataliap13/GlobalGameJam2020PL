@@ -9,12 +9,14 @@ public class Fish : MonoBehaviour
 {
     public typeOfFishEnum typeOfFish = typeOfFishEnum.peaceful;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
-    private GameObject TargetToEat;
-    private bool GoHunt = false;
+    public IdeaEatManager ideaEatManager;//set In Unity
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
     public List<TypeOfPlantEnum> HatedPlants { get; private set; }
-    private float speed = 4;
     public bool eatPlants = false;
+
+    private GameObject TargetToEat;
+    private bool GoHunt = false;
+    private float speed = 4;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +66,7 @@ public class Fish : MonoBehaviour
     private IEnumerator TimerToHunt(int timeInSeconds)
     {
         yield return new WaitForSeconds(timeInSeconds);
+        ideaEatManager.SetActive(false);
         GoHunt = true;
     }
 
@@ -73,7 +76,8 @@ public class Fish : MonoBehaviour
         foreach (var f in food)
         {
             TargetToEat = f.gameObject;
-            //gameObject.chi
+            ideaEatManager.SetTargetSprite(f.gameObject);
+            ideaEatManager.SetActive(true);
             StartCoroutine(TimerToHunt(2));
             return;
         }
@@ -84,6 +88,8 @@ public class Fish : MonoBehaviour
             if (f.sizeOfFish < sizeOfFish)
             {
                 TargetToEat = f.gameObject;
+                ideaEatManager.SetTargetSprite(f.gameObject);
+                ideaEatManager.SetActive(true);
                 StartCoroutine(TimerToHunt(2));
                 return;
             }
