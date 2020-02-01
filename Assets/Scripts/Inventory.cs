@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public int money = 100;
     public StatsManager statsManager;
     public GameObject itemsContainer;
-    private GameObject objectToSpawn;
+    public GameObject objectToSpawn;
 
     public void SelectObject(GameObject selectedObject, int cost)
     {

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject winLevelCanvas;
     public GameObject loseLevelCanvas;
     public GameObject pauseMenuCanvas;
+    public Inventory inventory;
 
     private List<Fish> fishAlive;
     private int defaultFishCount;
@@ -39,13 +40,16 @@ public class GameManager : MonoBehaviour
     {
         print("WinLevelMethod");
         Time.timeScale = 0f;
+        HideSelectedObject();
         winLevelCanvas.SetActive(true);
     }
 
     public void LoseLevel()
     {
         Time.timeScale = 0f;
+        HideSelectedObject();
         loseLevelCanvas.SetActive(true);
+
     }
 
     public void PauseMenu()
@@ -54,9 +58,14 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1f;
             pauseMenuCanvas.SetActive(false);
-        }else
+            ShowSelectedObject();
+
+
+        }
+        else
         {
             Time.timeScale = 0f;
+            HideSelectedObject();
             pauseMenuCanvas.SetActive(true);
         }
     }
@@ -72,6 +81,22 @@ public class GameManager : MonoBehaviour
         var activeScene = SceneManager.GetActiveScene();
         Time.timeScale = 1f;
         SceneManager.LoadScene(activeScene.buildIndex);
-
     }
+
+    private void HideSelectedObject()
+    {
+        if (inventory.objectToSpawn != null)
+        {
+            inventory.objectToSpawn.SetActive(false);
+        }
+    }
+
+    private void ShowSelectedObject()
+    {
+        if (inventory.objectToSpawn != null)
+        {
+            inventory.objectToSpawn.SetActive(true);
+        }
+    }
+
 }
