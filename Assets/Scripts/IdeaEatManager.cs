@@ -5,9 +5,21 @@ using UnityEngine;
 public class IdeaEatManager : MonoBehaviour
 {
     public SpriteRenderer fishSprite;
-    public void SetTargetSprite(GameObject target)
+    public void SetTargetSprite(typeOfFishEnum typeOfFish)
     {
-        fishSprite.sprite = target.GetComponentInChildren<SpriteRenderer>().sprite;
+        switch (typeOfFish)
+        {
+            case typeOfFishEnum.plantEating:
+                {
+                    //fishSprite.sprite = ;
+                    break;
+                }
+            case typeOfFishEnum.meatEating:
+                {
+                    //fishSprite.sprite = ;
+                    break;
+                }
+        }
     }
 
     public void SetActive(bool active)
