@@ -10,10 +10,13 @@ public class Inventory : MonoBehaviour
     public GameObject itemsContainer;
     public GameObject objToSpawn;
     public GameObject spriteOfObjectToSpawn;
+    private GameManager gameManager;
 
     private float[] fixedYPositions = { 0.45f, 0.25f, 0.05f, -0.15f };
 
     private bool freezeY = false;
+
+   
 
     public void SelectObjectWithFreezeY(GameObject objectToSpawn, GameObject sprite, int cost)
     {
@@ -48,6 +51,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         statsManager.SetMoneyText(money);
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -78,12 +82,24 @@ public class Inventory : MonoBehaviour
             go.transform.localScale = Vector3.one;
             go.transform.position = objectPosition;
 
+            var food = objToSpawn.GetComponent<Food>();
 
             Destroy(spriteOfObjectToSpawn);
             objToSpawn = null;
             spriteOfObjectToSpawn = null;
 
-            FindObjectOfType<GameManager>().MakeAllAggressiveFishToSearchForNewTarget();
+            if(food!=null)
+            {
+                if(food.type == typeOfFood.meat)
+                {
+                    gameManager.MakeAllMeatFishToSearchForNewTarget();
+                }else
+                {
+                    gameManager.MakeAllPlantFishToSearchForNewTarget();
+                }           
+            }
+
+
         }
     }
 }

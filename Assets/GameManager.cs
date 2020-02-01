@@ -18,11 +18,19 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    public void MakeAllAggressiveFishToSearchForNewTarget()
+    public void MakeAllMeatFishToSearchForNewTarget()
     {
         for (int i = 0; i < meatEatingFishAlive.Count; i++)
         {
             meatEatingFishAlive[i].ChooseTargetToEat(0);
+        }
+    }
+
+    public void MakeAllPlantFishToSearchForNewTarget()
+    {
+        for (int i = 0; i < plantEatingFishAlive.Count; i++)
+        {
+            plantEatingFishAlive[i].ChooseTargetToEat(0);
         }
     }
 
