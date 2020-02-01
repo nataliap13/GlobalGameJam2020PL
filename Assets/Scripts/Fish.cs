@@ -70,8 +70,6 @@ public class Fish : MonoBehaviour
     private void ChooseTargetToEat(int timeInSeconds)
     {
         var food = FindObjectsOfType<Food>();
-        var fish = FindObjectsOfType<Fish>();
-
         foreach (var f in food)
         {
             TargetToEat = f.gameObject;
@@ -79,6 +77,7 @@ public class Fish : MonoBehaviour
             return;
         }
 
+        var fish = FindObjectsOfType<Fish>();
         foreach (var f in fish)
         {
             if (f.sizeOfFish < sizeOfFish)

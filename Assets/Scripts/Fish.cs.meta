@@ -3,7 +3,9 @@ guid: 62661233911e64e42ae7a47ec5498f05
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Idea_Eat_Prefab: {fileID: 7660993094642362543, guid: 8093f3cbf3d65184db5259e69337df21,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
