@@ -5,34 +5,32 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private GameObject selectedObject;
-    public GameObject plantPrefab;
     public GameObject itemsContainer;
+    private GameObject objectToSpawn;
 
-
-    public void SelectPlant()
+    public void SelectObject(GameObject selectedObject)
     {
-        selectedObject = Instantiate(plantPrefab, Vector3.zero, Quaternion.identity);
-        selectedObject.GetComponent<BoxCollider2D>().enabled = false;
-        selectedObject.transform.parent = itemsContainer.transform;
-        selectedObject.transform.localScale = Vector3.one;
+        objectToSpawn = Instantiate(selectedObject, Vector3.zero, Quaternion.identity);
+        objectToSpawn.GetComponent<BoxCollider2D>().enabled = false;
+        objectToSpawn.transform.parent = itemsContainer.transform;
+        objectToSpawn.transform.localScale = Vector3.one;
     }
 
 
     private void Update()
     {
-        if (selectedObject != null)
+        if (objectToSpawn != null)
         {
             var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var objectPosition = new Vector3(mousePosition.x, 0, 0);
-            selectedObject.transform.position = objectPosition;
+            objectToSpawn.transform.position = objectPosition;
         }
 
 
-        if (Input.GetMouseButtonDown(0) && selectedObject != null)
+        if (Input.GetMouseButtonDown(0) && objectToSpawn != null)
         {
-            selectedObject.GetComponent<BoxCollider2D>().enabled = true;
-            selectedObject = null;
+            objectToSpawn.GetComponent<BoxCollider2D>().enabled = true;
+            objectToSpawn = null;
 
         }
     }
