@@ -13,9 +13,9 @@ public class Inventory : MonoBehaviour
 
     private bool freezeY = false;
 
-    public void SelectObjectWithFreezeY(GameObject objectToSpawn,GameObject sprite, int cost)
+    public void SelectObjectWithFreezeY(GameObject objectToSpawn, GameObject sprite, int cost)
     {
-        if(cost > money) { return; }
+        if (cost > money) { return; }
 
         freezeY = true;
 
@@ -54,7 +54,7 @@ public class Inventory : MonoBehaviour
         {
             var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if(freezeY)
+            if (freezeY)
             {
                 var objectPosition = new Vector3(mousePosition.x, 0, 0);
                 spriteOfObjectToSpawn.transform.position = objectPosition;
@@ -83,6 +83,7 @@ public class Inventory : MonoBehaviour
             objToSpawn = null;
             spriteOfObjectToSpawn = null;
 
+            FindObjectOfType<GameManager>().MakeAllFishToSearchForNewTarget();
         }
     }
 }
