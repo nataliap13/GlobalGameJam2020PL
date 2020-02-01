@@ -8,8 +8,8 @@ public class Inventory : MonoBehaviour
     public int money = 100;
     public StatsManager statsManager;
     public GameObject itemsContainer;
-    private GameObject objToSpawn;
-    private GameObject spriteOfObjectToSpawn;
+    public GameObject objToSpawn;
+    public GameObject spriteOfObjectToSpawn;
 
     private bool freezeY = false;
 
@@ -83,7 +83,7 @@ public class Inventory : MonoBehaviour
             objToSpawn = null;
             spriteOfObjectToSpawn = null;
 
-            FindObjectOfType<GameManager>().MakeAllFishToSearchForNewTarget();
+            FindObjectOfType<GameManager>().MakeAllAggressiveFishToSearchForNewTarget();
         }
     }
 }

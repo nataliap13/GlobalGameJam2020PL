@@ -17,6 +17,17 @@ public class Fish : MonoBehaviour
     private GameObject TargetToEat;
     private bool GoHunt = false;
     private float speed = 4;
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        if(typeOfFish == typeOfFishEnum.meatEating)
+        {
+            gameManager.aggressiveFishAlive.Add(this);
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
