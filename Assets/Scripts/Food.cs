@@ -7,6 +7,7 @@ public enum typeOfFood { meat, plant}
 public class Food : MonoBehaviour
 {
     public typeOfFood type;
+    public float animationSpeed = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,12 @@ public class Food : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        AnimateSprite();
+    }
+
+    private void AnimateSprite()
+    {
+        var scaleVector = new Vector3(Mathf.Sin(Time.time * animationSpeed) , 1f, 1f);
+        transform.localScale = scaleVector;
     }
 }

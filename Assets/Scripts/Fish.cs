@@ -50,7 +50,7 @@ public class Fish : MonoBehaviour
         if (GoHunt == true && TargetToEat != null)
         {
             float step = 1 * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, TargetToEat.transform.position.y), step);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, TargetToEat.transform.position.y,transform.position.z), step);
             //fix strange bug with strange Z
             var pos = transform.localPosition;
             pos.z = 0;
@@ -97,10 +97,12 @@ public class Fish : MonoBehaviour
     }
 
     private void MoveHorizontal()
-    { transform.Translate(speed * Time.deltaTime, 0, 0); }
-
-    private void MoveVertical()
-    { transform.Translate(0, speed * Time.deltaTime, 0); }
+    {
+        transform.Translate(speed * Time.deltaTime, 0, 0);
+        var pos = transform.localPosition;
+        pos.z = 0;
+        transform.localPosition = pos;
+    }
 
     public void Flip()
     {
