@@ -18,8 +18,16 @@ public class ItemInGui : MonoBehaviour
     }
 
 
-    public void SelectItem()
+    public void SelectItem(bool freezeY)
     {
-        inventory.SelectObject(itemToSpawn, cost);
+        if(freezeY)
+        {
+            inventory.SelectObjectWithFreezeY(itemToSpawn, cost);
+        }
+        else
+        {
+            inventory.SelectObject(itemToSpawn, cost);
+        }
+
     }
 }
