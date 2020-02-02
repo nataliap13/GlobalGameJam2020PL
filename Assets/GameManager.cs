@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject loseLevelCanvas;
     public GameObject pauseMenuCanvas;
     public Inventory inventory;
-    
+
     public List<Fish> meatEatingFishAlive;
     public List<Fish> plantEatingFishAlive;
     public int minFishToWin = 3;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseMenu();
         }
@@ -60,13 +60,11 @@ public class GameManager : MonoBehaviour
 
     public void PauseMenu()
     {
-        if(pauseMenuCanvas.activeInHierarchy)
+        if (pauseMenuCanvas.activeInHierarchy)
         {
             Time.timeScale = 1f;
             pauseMenuCanvas.SetActive(false);
             ShowSelectedObject();
-
-
         }
         else
         {
@@ -111,18 +109,39 @@ public class GameManager : MonoBehaviour
         switch (deathFish.typeOfFood)
         {
             case typeOfFoodEnum.meat:
-                meatEatingFishAlive.Remove(deathFish);
-                break;
+                {
+                    meatEatingFishAlive.Remove(deathFish);
+                    break;
+                }
             case typeOfFoodEnum.plant:
-                plantEatingFishAlive.Remove(deathFish);
-                break;
+                {
+                    plantEatingFishAlive.Remove(deathFish);
+                    break;
+                }
             default:
-                break;
+                { break; }
         }
 
-        if(meatEatingFishAlive.Count + plantEatingFishAlive.Count <3)
+        if (meatEatingFishAlive.Count + plantEatingFishAlive.Count < minFishToWin)
+        { LoseLevel(); }
+    }
+
+    public void AddFishToLists(Fish fish)
+    {
+        switch (fish.typeOfFood)
         {
-            LoseLevel();
+            case typeOfFoodEnum.meat:
+                {
+                    meatEatingFishAlive.Add(fish);
+                    break;
+                }
+            case typeOfFoodEnum.plant:
+                {
+                    plantEatingFishAlive.Add(fish);
+                    break;
+                }
+            default:
+                { break; }
         }
     }
 }

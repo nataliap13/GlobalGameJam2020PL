@@ -1454,7 +1454,12 @@ PrefabInstance:
     - target: {fileID: 1652165212419262935, guid: c120872c43933ff4e9cffbcd1a4987b3,
         type: 3}
       propertyPath: speed
-      value: 7
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652165212419262935, guid: c120872c43933ff4e9cffbcd1a4987b3,
+        type: 3}
+      propertyPath: timeToDeath
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1955268673573964406, guid: c120872c43933ff4e9cffbcd1a4987b3,
         type: 3}
@@ -1600,6 +1605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7726665982319087319, guid: c120872c43933ff4e9cffbcd1a4987b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8520739982987413892, guid: c120872c43933ff4e9cffbcd1a4987b3,
         type: 3}

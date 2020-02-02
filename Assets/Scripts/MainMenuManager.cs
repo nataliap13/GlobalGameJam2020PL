@@ -22,6 +22,7 @@ public class MainMenuManager : MonoBehaviour
         if(levelNumber < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(levelNumber);
+            Time.timeScale = 1f;
         }
     }
 

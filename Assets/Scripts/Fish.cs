@@ -17,54 +17,32 @@ public class Fish : MonoBehaviour
 
     private GameObject TargetToEat;
     private bool hungerTriggerIsOn = false;
-    private bool GoHunt = false;
-    private bool beforeHunting = false;
-    private float timeBeforeHungry = 1f;
+    private bool isHunting = false;
+    //private bool isHungry = false;
+    //private float timeBeforeHungry = 1f;
     private float minHungerInterval = 0f;
     private float maxHungerInterval = 2f;
-    public float timeToDeath = 10f;
 
     [SerializeField]
     private float speed = 4;
     [SerializeField]
-    private float timeToGetHungry = 4f;
+    private float timeToStartHunting = 4f;
     private GameManager gameManager;
 
-    private Coroutine dieTimerCoroutine;
+    public float timeToDeath = 10f;
+    private Coroutine HungryDieTimerCoroutine;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        switch (typeOfFood)
-        {
-            case typeOfFoodEnum.meat:
-                {
-                    gameManager.meatEatingFishAlive.Add(this);
-                    break;
-                }
-            case typeOfFoodEnum.plant:
-                {
-                    gameManager.plantEatingFishAlive.Add(this);
-                    break;
-                }
-        }
+        gameManager.AddFishToLists(this);
+        ideaEatManager.SetTargetSprite(typeOfFood);
     }
 
     private void OnDestroy()
     {
-        switch (typeOfFood)
-        {
-            case typeOfFoodEnum.meat:
-                {
-                    gameManager.meatEatingFishAlive.Remove(this);
-                    break;
-                }
-            case typeOfFoodEnum.plant:
-                {
-                    gameManager.plantEatingFishAlive.Remove(this);
-                    break;
-                }
-        }
+        gameManager.NotifyFishDeath(this);
+        print(this.name + " died!");
     }
 
     // Start is called before the first frame update
@@ -97,7 +75,7 @@ public class Fish : MonoBehaviour
     void Update()
     {
         MoveHorizontal();
-        if (GoHunt == true && TargetToEat != null)
+        if (isHunting == true && TargetToEat != null)
         {
             float step = 1 * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, TargetToEat.transform.position.y, transform.position.z), step);
@@ -108,59 +86,62 @@ public class Fish : MonoBehaviour
         }
         else if (TargetToEat == null)
         {
-            if(beforeHunting)
+
+            if (HungryDieTimerCoroutine != null)
             {
-                GoHunt = false;
-                ChooseTargetToEat(timeToGetHungry);
-            }else
+                ChooseTargetToEat(0);//if you are hungry but fish does not have target, search for target now
+            }
+            else//if (HungryDieTimerCoroutine == null)
             {
-                if(!hungerTriggerIsOn)
+                if (!hungerTriggerIsOn)
                 {
                     StartCoroutine(HungerTrigger());
                 }
             }
-
         }
     }
 
-    private IEnumerator HungerTrigger()
+    private IEnumerator HungerTrigger()//randomize when fish is hungry again
     {
         hungerTriggerIsOn = true;
 
         var hungerInterval = Random.Range(minHungerInterval, maxHungerInterval);
-        yield return new WaitForSeconds(hungerInterval);
+        yield return new WaitForSeconds(hungerInterval);//fish will be hungry after this time
 
-        float timeToShowCloud = Mathf.Clamp(timeToGetHungry - timeBeforeHungry, 0f, timeToGetHungry);
+        //float timeToShowCloud = Mathf.Clamp(timeToGetHungry - timeBeforeHungry, 0f, timeToGetHungry);
+        //yield return new WaitForSeconds(timeToShowCloud);
         //print(gameObject.name +": "+ timeToShowCloud);
-        yield return new WaitForSeconds(timeToShowCloud);
 
-        ideaEatManager.SetTargetSprite(typeOfFood);
         ideaEatManager.SetActive(true);
-        beforeHunting = true;
+        ChooseTargetToEat(timeToStartHunting);
+        HungryDieTimerCoroutine = StartCoroutine(KillFishAfterDelay(timeToDeath));
+
+        //isHungry = true;
+        //isHunting = false;
         hungerTriggerIsOn = false;
     }
+
     private IEnumerator TimerToHunt(float timeInSeconds)
     {
-        if(beforeHunting)
+        //if (HungryDieTimerCoroutine != null)
+        //if (isHungry)
         {
-            dieTimerCoroutine=StartCoroutine(KillFishAfterDelay(timeToDeath));
+            //dieTimerCoroutine=StartCoroutine(KillFishAfterDelay(timeToDeath));
             yield return new WaitForSeconds(timeInSeconds);
             ideaEatManager.SetActive(false);
-            GoHunt = true;
-            beforeHunting = false;
+            //isHungry = false;
+            isHunting = true;
         }
-
     }
 
     public void ChooseTargetToEat(float timeInSeconds)
     {
-        //if (timeInSeconds > 0)
-        //{//pop up think cloud
-        //    print("Choose target");
-        //    ideaEatManager.SetTargetSprite(typeOfFood);
-        //    ideaEatManager.SetActive(true);
-        //}
+        /*if (timeInSeconds > 0)
+        {//pop up think cloud            
+            ideaEatManager.SetActive(true);
+        }*/
 
+        //first try to eat food rather than plant or other fish
         var food = FindObjectsOfType<Food>().Where(x => x.typeOfFood == typeOfFood);
         foreach (var f in food)
         {
@@ -169,6 +150,7 @@ public class Fish : MonoBehaviour
             return;
         }
 
+        //if not returned, so if not found their food, do this switch
         switch (typeOfFood)
         {
             case typeOfFoodEnum.meat:
@@ -228,12 +210,13 @@ public class Fish : MonoBehaviour
             {
                 Destroy(food.gameObject);
                 //print(gameObject.name + " ate " + collision.gameObject.name);
-                GoHunt = false;
-                beforeHunting = false;
-                print(gameObject.name + " has stopped the coroutine");
-                if(dieTimerCoroutine!=null)
+                isHunting = false;
+                //isHungry = false;
+                if (HungryDieTimerCoroutine != null)
                 {
-                    StopCoroutine(dieTimerCoroutine);
+                    print(gameObject.name + " has stopped the coroutine");
+                    StopCoroutine(HungryDieTimerCoroutine);
+                    HungryDieTimerCoroutine = null;
                 }
                 return;
             }
@@ -242,29 +225,27 @@ public class Fish : MonoBehaviour
             var targetFish = TargetToEat.GetComponent<Fish>();
             if (otherFish != null && targetFish != null && otherFish == targetFish)
             {
-                gameManager.NotifyFishDeath(otherFish);
                 Destroy(otherFish.gameObject);
                 //print(gameObject.name + " ate " + collision.gameObject.name);
-                GoHunt = false;
-                beforeHunting = false;
-                print(gameObject.name + " has stopped the coroutine");
-                if (dieTimerCoroutine != null)
+                isHunting = false;
+                //isHungry = false;
+                if (HungryDieTimerCoroutine != null)
                 {
-                    StopCoroutine(dieTimerCoroutine);
+                    print(gameObject.name + " has stopped the coroutine");
+                    StopCoroutine(HungryDieTimerCoroutine);
+                    HungryDieTimerCoroutine = null;
                 }
                 return;
             }
         }
     }
 
-
+    ///*
     private IEnumerator KillFishAfterDelay(float delay)
     {
         print(gameObject.name + " will die after " + delay + " seconds");
         yield return new WaitForSeconds(delay);
-        gameManager.NotifyFishDeath(this);
+        //gameManager.NotifyFishDeath(this);
         Destroy(this.gameObject);
-    }
-
-    
+    }//*/
 }

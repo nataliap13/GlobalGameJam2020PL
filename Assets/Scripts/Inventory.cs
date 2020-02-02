@@ -77,7 +77,7 @@ public class Inventory : MonoBehaviour
             else
             {
                 var yRounded = Mathf.Clamp(mousePosition.y, -3f, 3f);
-                print(yRounded);
+                //print(yRounded);
                 float min = float.MaxValue;
                 int index = 0;
                 for (int i = 0; i < fixedYPositions.Length; i++)
