@@ -22,12 +22,15 @@ public class Fish : MonoBehaviour
     private float timeBeforeHungry = 1f;
     private float minHungerInterval = 0f;
     private float maxHungerInterval = 2f;
+    public float timeToDeath = 10f;
 
     [SerializeField]
     private float speed = 4;
     [SerializeField]
     private float timeToGetHungry = 4f;
     private GameManager gameManager;
+
+    private Coroutine dieTimerCoroutine;
 
     private void Awake()
     {
@@ -128,7 +131,7 @@ public class Fish : MonoBehaviour
         yield return new WaitForSeconds(hungerInterval);
 
         float timeToShowCloud = Mathf.Clamp(timeToGetHungry - timeBeforeHungry, 0f, timeToGetHungry);
-        print(gameObject.name +": "+ timeToShowCloud);
+        //print(gameObject.name +": "+ timeToShowCloud);
         yield return new WaitForSeconds(timeToShowCloud);
 
         ideaEatManager.SetTargetSprite(typeOfFood);
@@ -140,6 +143,7 @@ public class Fish : MonoBehaviour
     {
         if(beforeHunting)
         {
+            dieTimerCoroutine=StartCoroutine(KillFishAfterDelay(timeToDeath));
             yield return new WaitForSeconds(timeInSeconds);
             ideaEatManager.SetActive(false);
             GoHunt = true;
@@ -223,9 +227,14 @@ public class Fish : MonoBehaviour
             if (food != null && targetFood != null && food == targetFood)
             {
                 Destroy(food.gameObject);
-                print(gameObject.name + " ate " + collision.gameObject.name);
+                //print(gameObject.name + " ate " + collision.gameObject.name);
                 GoHunt = false;
                 beforeHunting = false;
+                print(gameObject.name + " has stopped the coroutine");
+                if(dieTimerCoroutine!=null)
+                {
+                    StopCoroutine(dieTimerCoroutine);
+                }
                 return;
             }
 
@@ -235,16 +244,26 @@ public class Fish : MonoBehaviour
             {
                 gameManager.NotifyFishDeath(otherFish);
                 Destroy(otherFish.gameObject);
-                print(gameObject.name + " ate " + collision.gameObject.name);
+                //print(gameObject.name + " ate " + collision.gameObject.name);
                 GoHunt = false;
                 beforeHunting = false;
+                print(gameObject.name + " has stopped the coroutine");
+                if (dieTimerCoroutine != null)
+                {
+                    StopCoroutine(dieTimerCoroutine);
+                }
                 return;
             }
         }
     }
 
 
-
+    private IEnumerator KillFishAfterDelay(float delay)
+    {
+        print(gameObject.name + " will die after " + delay + " seconds");
+        yield return new WaitForSeconds(delay);
+        Destroy(this.gameObject);
+    }
 
     
 }
