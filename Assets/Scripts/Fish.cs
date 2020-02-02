@@ -9,7 +9,7 @@ public class Fish : MonoBehaviour
 {
     public typeOfFoodEnum typeOfFood = typeOfFoodEnum.plant;
     public sizeOfFishEnum sizeOfFish = sizeOfFishEnum.small;
-    public IdeaEatManager ideaEatManager;//set In Unity
+    public IdeaEatManager ideaEatManager;//set In Unity FishPrefab
     public List<TypeOfPlantEnum> LikedPlants { get; private set; }
     public List<TypeOfPlantEnum> HatedPlants { get; private set; }
     public List<TypeOfPlantEnum> EatenPlants { get; private set; }
@@ -20,8 +20,8 @@ public class Fish : MonoBehaviour
     private bool isHunting = false;
     //private bool isHungry = false;
     //private float timeBeforeHungry = 1f;
-    private float minHungerInterval = 0f;
-    private float maxHungerInterval = 2f;
+    private float minHungerInterval = 1f;
+    private float maxHungerInterval = 3f;
 
     [SerializeField]
     private float speed = 4;
