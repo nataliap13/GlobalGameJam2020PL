@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404c888952cd1384690032fc6d5566c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  typeOfFood: 0
   animationSpeed: 5
 --- !u!1 &9022606364057392338
 GameObject:

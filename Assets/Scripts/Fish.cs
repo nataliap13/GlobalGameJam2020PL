@@ -16,8 +16,17 @@ public class Fish : MonoBehaviour
     public bool eatPlants = false;
 
     private GameObject TargetToEat;
+    private bool hungerTriggerIsOn = false;
     private bool GoHunt = false;
+    private bool beforeHunting = false;
+    private float timeBeforeHungry = 1f;
+    private float minHungerInterval = 0f;
+    private float maxHungerInterval = 2f;
+
+    [SerializeField]
     private float speed = 4;
+    [SerializeField]
+    private float timeToGetHungry = 4f;
     private GameManager gameManager;
 
     private void Awake()
@@ -96,25 +105,57 @@ public class Fish : MonoBehaviour
         }
         else if (TargetToEat == null)
         {
-            GoHunt = false;
-            ChooseTargetToEat(4);
+            if(beforeHunting)
+            {
+                GoHunt = false;
+                ChooseTargetToEat(timeToGetHungry);
+            }else
+            {
+                if(!hungerTriggerIsOn)
+                {
+                    StartCoroutine(HungerTrigger());
+                }
+            }
+
         }
     }
 
-    private IEnumerator TimerToHunt(int timeInSeconds)
+    private IEnumerator HungerTrigger()
     {
-        yield return new WaitForSeconds(timeInSeconds);
-        ideaEatManager.SetActive(false);
-        GoHunt = true;
+        hungerTriggerIsOn = true;
+
+        var hungerInterval = Random.Range(minHungerInterval, maxHungerInterval);
+        yield return new WaitForSeconds(hungerInterval);
+
+        float timeToShowCloud = Mathf.Clamp(timeToGetHungry - timeBeforeHungry, 0f, timeToGetHungry);
+        print(gameObject.name +": "+ timeToShowCloud);
+        yield return new WaitForSeconds(timeToShowCloud);
+
+        ideaEatManager.SetTargetSprite(typeOfFood);
+        ideaEatManager.SetActive(true);
+        beforeHunting = true;
+        hungerTriggerIsOn = false;
+    }
+    private IEnumerator TimerToHunt(float timeInSeconds)
+    {
+        if(beforeHunting)
+        {
+            yield return new WaitForSeconds(timeInSeconds);
+            ideaEatManager.SetActive(false);
+            GoHunt = true;
+            beforeHunting = false;
+        }
+
     }
 
-    public void ChooseTargetToEat(int timeInSeconds)
+    public void ChooseTargetToEat(float timeInSeconds)
     {
-        if (timeInSeconds > 0)
-        {//pop up think cloud
-            ideaEatManager.SetTargetSprite(typeOfFood);
-            ideaEatManager.SetActive(true);
-        }
+        //if (timeInSeconds > 0)
+        //{//pop up think cloud
+        //    print("Choose target");
+        //    ideaEatManager.SetTargetSprite(typeOfFood);
+        //    ideaEatManager.SetActive(true);
+        //}
 
         var food = FindObjectsOfType<Food>().Where(x => x.typeOfFood == typeOfFood);
         foreach (var f in food)
@@ -184,6 +225,7 @@ public class Fish : MonoBehaviour
                 Destroy(food.gameObject);
                 print(gameObject.name + " ate " + collision.gameObject.name);
                 GoHunt = false;
+                beforeHunting = false;
                 return;
             }
 
@@ -191,11 +233,18 @@ public class Fish : MonoBehaviour
             var targetFish = TargetToEat.GetComponent<Fish>();
             if (otherFish != null && targetFish != null && otherFish == targetFish)
             {
+                gameManager.NotifyFishDeath(otherFish);
                 Destroy(otherFish.gameObject);
                 print(gameObject.name + " ate " + collision.gameObject.name);
                 GoHunt = false;
+                beforeHunting = false;
                 return;
             }
         }
     }
+
+
+
+
+    
 }

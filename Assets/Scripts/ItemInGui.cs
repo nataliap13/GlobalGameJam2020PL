@@ -21,9 +21,15 @@ public class ItemInGui : MonoBehaviour
 
     public void SelectItem(bool freezeY)
     {
+        if(inventory.spriteOfObjectToSpawn!=null)
+        {
+            return;
+        }
         if(freezeY)
         {
             inventory.SelectObjectWithFreezeY(itemToSpawn, spriteOfItemToSpawn, cost);
+            costText.text = "X";
+            costText.color = Color.red;
         }
         else
         {

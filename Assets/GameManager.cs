@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     
     public List<Fish> meatEatingFishAlive;
     public List<Fish> plantEatingFishAlive;
+    public int minFishToWin = 3;
 
     private void Awake()//execute before start
     {
@@ -104,4 +105,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public void NotifyFishDeath(Fish deathFish)
+    {
+        switch (deathFish.typeOfFood)
+        {
+            case typeOfFoodEnum.meat:
+                meatEatingFishAlive.Remove(deathFish);
+                break;
+            case typeOfFoodEnum.plant:
+                plantEatingFishAlive.Remove(deathFish);
+                break;
+            default:
+                break;
+        }
+
+        if(meatEatingFishAlive.Count + plantEatingFishAlive.Count <3)
+        {
+            LoseLevel();
+        }
+    }
 }
