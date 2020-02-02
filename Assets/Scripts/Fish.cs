@@ -262,6 +262,7 @@ public class Fish : MonoBehaviour
     {
         print(gameObject.name + " will die after " + delay + " seconds");
         yield return new WaitForSeconds(delay);
+        gameManager.NotifyFishDeath(this);
         Destroy(this.gameObject);
     }
 
