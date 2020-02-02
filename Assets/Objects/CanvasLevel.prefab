@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 6238504737360109192}
   - component: {fileID: 5647410901786397283}
   m_Layer: 0
-  m_Name: LevelMajorObject
+  m_Name: CanvasLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1614,7 +1614,7 @@ PrefabInstance:
     - target: {fileID: 8520739982987413892, guid: c120872c43933ff4e9cffbcd1a4987b3,
         type: 3}
       propertyPath: m_Name
-      value: CanvasLevel
+      value: CanvasLevelScene
       objectReference: {fileID: 0}
     - target: {fileID: 8520739982987413892, guid: c120872c43933ff4e9cffbcd1a4987b3,
         type: 3}

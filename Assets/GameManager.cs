@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()//execute before start
     {
+        Time.timeScale = 1f;
     }
 
     public void MakeAllMeatFishToSearchForNewTarget()
@@ -83,7 +84,6 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         var activeScene = SceneManager.GetActiveScene();
-        Time.timeScale = 1f;
         SceneManager.LoadScene(activeScene.buildIndex);
     }
 
